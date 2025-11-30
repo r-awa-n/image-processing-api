@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "target": "ES6",
-    "rootDir": "./src",
-    "outDir": "./build",
-    "types": ["node", "express"],   // <--- هذا يحل مشكلة الخط الأحمر
+    "rootDir": "src",
+    "outDir": "dist",
+    "types": ["node", "express"],   
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -14,5 +14,6 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true
-  }
+  },
+  "include": ["src"]
 }
