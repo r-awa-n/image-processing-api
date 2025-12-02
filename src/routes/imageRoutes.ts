@@ -1,19 +1,20 @@
 import express, { Request, Response } from 'express';
-import fs from 'fs';
 import path from 'path';
-import { getFirstImage, resizeImage } from '../utils/imageUtils';
+import fs from 'fs';
+import { getFirstImage, resizeImage } from '../utils/imageUtils.js';
 
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const filename = req.query.name ? String(req.query.name) : getFirstImage();
+    const filename = req.query.name
+      ? String(req.query.name)
+      : getFirstImage();
 
     if (!filename) {
-      return res.status(404).json({ error: 'No images found in full folder' });
+      return res.status(404).json({ error: 'No images found' });
     }
 
-    // المسار المطلق للصورة الأصلية
     const fullPath = path.resolve('images', 'full', filename);
 
     if (!fs.existsSync(fullPath)) {
@@ -23,14 +24,17 @@ router.get('/', async (req: Request, res: Response) => {
     const width = req.query.width ? parseInt(String(req.query.width)) : null;
     const height = req.query.height ? parseInt(String(req.query.height)) : null;
 
+    // if width/height not provided → return original image
     if (!width || !height) {
       return res.sendFile(fullPath);
     }
 
+    // resize
     const resizedPath = await resizeImage(filename, width, height);
+
     return res.sendFile(resizedPath);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
