@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
-import { getFirstImage, resizeImage } from '../utils/imageUtils.js';
+import { getFirstImage, resizeImage } from '../utils/imageUtils';
 
 const router = express.Router();
 

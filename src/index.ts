@@ -1,5 +1,6 @@
 import express from 'express';
-import imageRoutes from './routes/imageRoutes.js';
+import imageRoutes from './routes/imageRoutes';
+
 import path from 'path';
 
 const app = express();
